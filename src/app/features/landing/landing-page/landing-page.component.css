@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400&family=Palanquin+Dark:wght@700&family=Poppins:wght@500;600&display=swap');
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :host {
   display: block;
   background: #DCDCD1;
@@ -16,6 +22,7 @@
   top: 0;
   left: 0;
   width: 100%;
+  min-width: 0;
   background: #092C36;
   z-index: 1000;
 }
@@ -92,7 +99,8 @@
 }
 
 .hero-logo {
-  max-width: 220px;
+  max-width: clamp(120px, 22vw, 220px);
+  width: 100%;
   height: auto;
 }
 
@@ -106,7 +114,7 @@
 
 .hero h1 {
   font-family: 'Palanquin Dark', Arial, sans-serif;
-  font-size: 2.5rem;
+  font-size: clamp(1.5rem, 4vw, 2.7rem);
   font-weight: 700;
   margin-bottom: 1rem;
 }
@@ -117,7 +125,7 @@
 
 .hero-description {
   font-family: 'DM Sans', Arial, sans-serif;
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
   margin-bottom: 2rem;
   color: #0B6862;
 }
@@ -155,7 +163,8 @@
   border-radius: 18px;
   box-shadow: 0 2px 16px rgba(9,44,54,0.08);
   padding: 2rem 1.5rem;
-  max-width: 320px;
+  max-width: 95vw;
+  min-width: 220px;
   flex: 1 1 260px;
   text-align: center;
   margin-bottom: 1rem;
@@ -163,7 +172,7 @@
 
 .feature-card h2 {
   font-family: 'Palanquin Dark', Arial, sans-serif;
-  font-size: 1.3rem;
+  font-size: clamp(1.2rem, 3vw, 2rem);
   color: #0B6862;
   margin-bottom: 0.7rem;
 }
@@ -171,7 +180,7 @@
 .feature-card p {
   font-family: 'DM Sans', Arial, sans-serif;
   color: #092C36;
-  font-size: 1rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
 }
 
 /* Footer */
@@ -183,21 +192,11 @@
   font-family: 'Poppins', Arial, sans-serif;
   font-size: 1rem;
   margin-top: 2rem;
-  width: 100vw;
+  width: 100%;
+  min-width: 0;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  .features {
-    flex-direction: column;
-    align-items: center;
-  }
-  .feature-card {
-    max-width: 90vw;
-  }
 }
 
 /* Testimonios */
@@ -211,7 +210,7 @@
 }
 .testimonials-title {
   font-family: 'Palanquin Dark', Arial, sans-serif;
-  font-size: 2rem;
+  font-size: clamp(1.2rem, 3vw, 2rem);
   color: #0B6862;
   margin-bottom: 2rem;
 }
@@ -222,9 +221,6 @@
   justify-content: center;
   overflow-x: auto;
   padding-bottom: 1rem;
-  width: 100vw;
-  margin-left: 50%;
-  transform: translateX(-50%);
   box-sizing: border-box;
   scrollbar-width: thin;
   scrollbar-color: #7AAAAA #F5F8F7;
@@ -242,17 +238,22 @@
   border-radius: 18px;
   box-shadow: 0 2px 16px rgba(9,44,54,0.10);
   padding: 2rem 1.5rem;
-  min-width: 235px;
-  max-width: 265px;
+  min-width: 180px;
+  max-width: 260px;
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 0;
 }
+
+/* Opcional: más espacio solo para la primera card */
+.testimonial-card:first-child {
+  margin-left: 0.5rem;
+}
 .testimonial-img {
-  width: 100px;
-  height: 100px;
+  width: clamp(70px, 12vw, 110px);
+  height: clamp(70px, 12vw, 110px);
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 1rem;
@@ -260,7 +261,7 @@
 }
 .testimonial-text {
   font-family: 'DM Sans', Arial, sans-serif;
-  font-size: 1.05rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
   color: #092C36;
   margin-bottom: 0.8rem;
 }
@@ -277,20 +278,21 @@
   border-radius: 18px;
   box-shadow: 0 2px 16px rgba(9,44,54,0.06);
   margin: 3rem auto 2rem auto;
-  max-width: 700px;
+  max-width: 95vw;
+  min-width: 220px;
   padding: 2rem 1.5rem;
   text-align: center;
 }
 .about-us h2 {
   font-family: 'Palanquin Dark', Arial, sans-serif;
   color: #0B6862;
-  font-size: 1.5rem;
+  font-size: clamp(1.2rem, 3vw, 2rem);
   margin-bottom: 1rem;
 }
 .about-us p {
   font-family: 'DM Sans', Arial, sans-serif;
   color: #092C36;
-  font-size: 1.1rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
 }
 
 /* GitHub Link */
@@ -322,18 +324,79 @@
   height: 28px;
 }
 
-/* Responsive para testimonios y secciones nuevas */
+/* Responsive */
 @media (max-width: 900px) {
+  .navbar-container {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  .features {
+    flex-direction: column;
+    align-items: center;
+  }
+  .feature-card {
+    max-width: 98vw;
+  }
   .testimonials-list {
-    flex-direction: row;
-    align-items: stretch;
-    width: 100vw;
-    margin-left: 50%;
-    transform: translateX(-50%);
     gap: 1.2rem;
   }
   .testimonial-card {
-    min-width: 260px;
-    max-width: 90vw;
+    padding: 2rem 1.5rem;
+    min-width: 180px;
+    max-width: 260px;
   }
+}
+
+@media (max-width: 700px) {
+  .landing-navbar {
+    padding: 0;
+  }
+  .navbar-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 0.5rem;
+  }
+  .navbar-icon {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 0.3rem;
+  }
+  .navbar-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    align-items: center;
+  }
+  .btn {
+    width: 90vw;
+    max-width: 320px;
+    font-size: 1rem;
+    padding: 0.7rem 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-logo {
+    max-width: 60vw;
+    min-width: 80px;
+  }
+  .hero h1 {
+    font-size: clamp(1.1rem, 6vw, 1.7rem);
+  }
+  .hero-description {
+    font-size: clamp(0.95rem, 3vw, 1.1rem);
+  }
+  .feature-card,
+  .testimonial-card,
+  .about-us {
+    padding: 1.2rem 0.7rem;
+  }
+}
+
+/* 7. Evita scroll horizontal inesperado */
+body, :host {
+  overflow-x: hidden;
 }
